@@ -21,6 +21,7 @@ namespace CardGame
             // Set up 2 players with different names, strategies and card types
             players.Add(new Player("Player 1", cards, PlayerStrategy.MatchPrizeCard, CardType.Clubs));
             players.Add(new Player("Player 2", cards, PlayerStrategy.RandomCard, CardType.Diamonds));
+            // PS! A third player could also be added here, with a third win strategy
 
             // Set up the prize cards and shuffle these cards
             List<Card> prizeCards = ShuffleCards(cards.Where(x => x.CardType == CardType.Spades).ToList());
@@ -39,14 +40,16 @@ namespace CardGame
                 Console.WriteLine("");
                 Console.WriteLine("Prize card drawn: " + prizeCard.CardType.ToString() + " " + prizeCard.Value.ToString());
 
+                // Pick a winner among the players
                 List<Player> winners = PickWinners(players, prizeCard);
 
-                
+                // There is only one winner
                 if(winners.Count == 1)
                 {
                     Console.WriteLine("");
                     Console.WriteLine("ROUND WINNER: " + winners[0].Name + " (+" + prizeCard.Value + ")");    
                 }
+                // There are multiple winners
                 else
                 {
                     Console.WriteLine("");
@@ -62,15 +65,18 @@ namespace CardGame
                     Console.WriteLine(output);
                 }
 
+                // For each of the winners, add the prize card to their list of won cards, to calculate their total score
                 foreach(Player winner in winners)
                 {
                     winner.CardsWon.Add(prizeCard);
                 }
 
+                // Display the game status in the console
                 WriteGameStatusToConsole(players, prizeCards);
                 roundNumber++;
             }
 
+            // Game complete, display the game results in the console
             WriteGameFinalScoreToConsole(players);
         }
 
@@ -78,8 +84,10 @@ namespace CardGame
         {
             List<Player> winners = new List<Player>();
 
+            // Used for tracking the active card for each player
             List<PlayerCard> playerCards = new List<PlayerCard>();
 
+            // Get the "best" card from each player, based on the player's strategy
             foreach(Player player in players)
             {
                 Card card = player.GetBestCard(prizeCard.Value);
@@ -89,7 +97,7 @@ namespace CardGame
                 Console.WriteLine(playerCard.Player.Name + " used " + playerCard.Card.CardType.ToString() + " " + playerCard.Card.Value.ToString());
             }
 
-            // Find the highest card value
+            // Find the highest card value among the player's cards
             int highestValue = 0;
 
             foreach(PlayerCard playerCard in playerCards)
@@ -97,7 +105,7 @@ namespace CardGame
                 if(playerCard.Card.Value > highestValue) highestValue = playerCard.Card.Value;
             }
 
-            // Players that used a card with highest value will be the winners
+            // Player()s that used a card with highest value will be the winner(s)
             foreach(PlayerCard playerCard in playerCards)
             {
                 if(playerCard.Card.Value == highestValue) winners.Add(playerCard.Player);                
@@ -170,9 +178,11 @@ namespace CardGame
         {
             List<Card> cards = new List<Card>();
 
-            for(int i=1;i<5;i++) // CardType 1 to 4
+            // CardType 1 to 4 represents all of the available types
+            for(int i=1;i<5;i++) 
             {
-                for(int j=minValue;j<maxValue+1;j++) // We're only going to use cards with values 2 to 9
+                // Use the provided minValue and maxValue to select relevant cards only
+                for(int j=minValue;j<maxValue+1;j++) 
                 {
                     CardType type = (CardType)Enum.Parse(typeof(CardType), i.ToString());
                     Card card = new Card(type, j);

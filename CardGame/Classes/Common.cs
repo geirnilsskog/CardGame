@@ -82,15 +82,17 @@ namespace CardGame.Common
             }
             else if(this.Strategy == PlayerStrategy.RandomCard)
             {
-                // Shuffle the available cards
+                // Shuffle the available cards, we'll pick the first one after they've been shuffled
                 List<Card> cards = CardsAvailable.OrderBy (x => new Random().Next()).ToList();
 
                 if(cards[0] == null)
                 {
-                    throw new Exception("Unexpected error: A card with a matching value could not be found.");
+                    throw new Exception("Unexpected error: Couldn't select another card.");
                 }
                 else
                 {
+                    // Remove the selected card from the list of available cards, and then add it to the list of used cards
+                    // (So that we don't use the same card twice!)
                     CardsAvailable.Remove(cards[0]);
                     CardsUsed.Add(cards[0]);
                     return cards[0];
