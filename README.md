@@ -1,5 +1,6 @@
 # CardGame
-Implementation of a simple card game in C# and .NET Core 6
+Implementation of a simple card game in C# and .NET Core 6.
+
 To open this project, use the latest version of Visual Studio Code to build and run the project.
 
 Generic instructions on how to set up VS Code for .NET development can be found here: https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0
