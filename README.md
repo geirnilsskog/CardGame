@@ -12,6 +12,7 @@ Generic instructions on how to set up VS Code for .NET development can be found 
 
 3) Download and install the .NET 6 SDK from here: https://dotnet.microsoft.com/download/dotnet/6.0
 
-Set up a local copy of the CardGame folder in this repo and open this folder in VS Code, and press F5 to run the project. The application will output its results to the console.
+4) Set up a local copy of the CardGame folder in this repo and open this folder in VS Code, and press F5 to run the project. The application will output its results to the console.
 
 The project has been tested on Windows 10/11, but should also run on any supported platform for .NET Core 6 and VS Code (including macOS and various Linux versions).
+Binary files for Win 10/11 x64 are also included in the project.
